@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-var db = mongoose.connect("mongodb://localhost/13th_APPJAM", (err)=>{
+var db = mongoose.connect("mongodb://localhost/inapse", (err)=>{
     if(err){
         console.log('DB Error!')
         throw err
@@ -10,14 +10,29 @@ var db = mongoose.connect("mongodb://localhost/13th_APPJAM", (err)=>{
     }
 })
 
-var KcalSchema = new mongoose.Schema({
+var AccountSchema = new mongoose.Schema({
     title : {
         type : String
     },
     date : {
         type : String
     },
+    price : {
+        type : String
+    },
+    usertoken : {
+        type : String
+    }
+})
+
+var KcalSchema = new mongoose.Schema({
+    date : {
+        type : String
+    },
     kcal : {
+        type : String
+    },
+    usertoken : {
         type : String
     }
 })
@@ -33,7 +48,9 @@ var UserSchema = new mongoose.Schema({
 
 var User = mongoose.model('user',UserSchema)
 var Kcal = mongoose.model('kcal', KcalSchema)
+var Account = mongoose.model('account', AccountSchema)
 
 exports.User = User
 exports.Kcal = Kcal
+exports.Account = Account
 exports.db = db

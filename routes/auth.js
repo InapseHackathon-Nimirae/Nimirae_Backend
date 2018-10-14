@@ -13,8 +13,8 @@ function auth(app, db, RandomString, passport, AppFacebookStrategy) {
     });
 
     passport.use(new AppFacebookStrategy({
-        clientID : '2002484689811189',
-        clientSecret : '5fb87a325205dc830b24307f7d64a69b'
+        clientID : '2222417884700282',
+        clientSecret : '0e4eefb4eba544a9e8d050cc54a4eda0'
     }, (accessToken, refreshToken, profile, done)=>{
         console.log('======== APP PROFILE ========')
         console.log(profile)
@@ -26,16 +26,16 @@ function auth(app, db, RandomString, passport, AppFacebookStrategy) {
         if(req.user){
             console.log(req.user)
             db.User.findOne({
-                usertoken : req.param('access_token')
+                usertoken : req.user.id
             }, (err, data)=>{
                 if(err) throw err
                 else if(data){
-                    res.send(401, data)
+                    res.send(200, data)
                 }
                 else{
                     var user = new db.User({
                         username : req.user.displayName,
-                        usertoken : req.param('access_token')
+                        usertoken : req.user.id
                     })
                     user.save((err)=>{
                         if(err) throw err
